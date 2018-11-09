@@ -1,0 +1,28 @@
+mutation {
+  createEvent(title:"HelloWolrd", time: "9月24日 19:00", location:"blackman", description:"This is a description") {
+    id
+  }
+  editEvent(id: "b9319559-0b4c-4435-9632-2e38fbbcba15", title:"3131231") {
+    id
+    title
+    time
+    description
+  }
+  deleteEvent(id:"f04afa16-0ea4-4a48-9a83-4b859496fb65") {
+    id
+  }
+}
+query {
+  getEvents {
+    id
+    title
+    time
+    description
+  }
+  getEvent(id:"b9319559-0b4c-4435-9632-2e38fbbcba15") {
+    id
+    title
+    time
+    description
+  }
+}

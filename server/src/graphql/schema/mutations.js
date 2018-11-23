@@ -1,7 +1,7 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLNonNull } = graphql
 
-const { StarModel } = require('../../models')
+const { starModules } = require('../../modules')
 
 const StarType = require('./starType')
 
@@ -17,13 +17,44 @@ const mutation = new GraphQLObjectType({
         tags: { type: GraphQLList(GraphQLString) },
       },
       resolve(parentValue, args) {
-        const {
-          username,
-          githubRepository,
-          description,
-          tags,
-        } = args
-        return (new StarModel({ username, githubRepository, description, tags })).save()
+        // TODO validate privilege
+        return starModules.createStar(args)
+      },
+    },
+    // editStar: {
+    //   type: StarType,
+    //   args: {
+    //     id: { type: GraphQLNonNull(GraphQLID) },
+    //     username: { type: GraphQLString },
+    //     githubRepository: { type: GraphQLString },
+    //     description: { type: GraphQLString },
+    //     tags: { type: GraphQLList(GraphQLString) },
+    //   },
+    //   resolve(parentValue, args) {
+    //     // TODO validate privilege
+    //     return starModules.editStar(args)
+    //   },
+    // },
+    editStar: {
+      type: StarType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        description: { type: GraphQLString },
+        tags: { type: GraphQLList(GraphQLString) },
+      },
+      resolve(parentValue, args) {
+        // TODO validate privilege
+        return starModules.editStar(args)
+      },
+    },
+    removeStar: {
+      type: StarType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parentValue, args) {
+        // TODO validate privilege
+        return starModules.deleteStar(args.id)
       },
     },
   },

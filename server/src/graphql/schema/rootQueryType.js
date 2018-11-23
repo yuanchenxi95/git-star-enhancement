@@ -1,10 +1,10 @@
-const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
+const graphql = require('graphql')
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLString, GraphQLNonNull } = graphql
 
-const StarType = require('./starType');
-// const TagType = require('./tagType');
+const StarType = require('./starType')
+const TagType = require('./tagType')
 
-const { StarModel } = require('../../models')
+const { starModules } = require('../../modules')
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -12,24 +12,47 @@ const RootQuery = new GraphQLObjectType({
     stars: {
       type: new GraphQLList(StarType),
       resolve() {
-        return StarModel.find({})
+        return starModules.findStars({})
       },
     },
-    // song: {
-    //   type: SongType,
-    //   args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    //   resolve(parentValue, { id }) {
-    //     return Song.findById(id);
-    //   }
-    // },
-    // lyric: {
-    //   type: LyricType,
-    //   args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    //   resolve(parnetValue, { id }) {
-    //     return Lyric.findById(id);
-    //   }
-    // }
-  })
-});
+    starsOfUsername: {
+      type: new GraphQLList(StarType),
+      args: {
+        username: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parentValue, args) {
+        return starModules.findStars(args)
+      },
+    },
+    starsOfRepository: {
+      type: new GraphQLList(StarType),
+      args: {
+        githubRepository: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parentValue, args) {
+        return starModules.findStars(args)
+      },
+    },
+    starsOfTagsAndOperation: {
+      type: new GraphQLList(StarType),
+      args: {
+        tags: { type: GraphQLList(GraphQLString) },
+      },
+      resolve(parentValue, args) {
+        return starModules.findStars(args)
+      },
+    },
+    starsWithTagOrOperation: {
+      type: new GraphQLList(StarType),
+      args: {
+        tags: { type: GraphQLList(GraphQLString) },
+      },
+      resolve(parentValue, args) {
+        const { tags } = args
+        return starModules.findStarsWithTagOrOperation(tags)
+      },
+    },
+  }),
+})
 
-module.exports = RootQuery;
+module.exports = RootQuery

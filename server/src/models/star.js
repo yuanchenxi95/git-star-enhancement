@@ -13,11 +13,13 @@ const StarSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    index: true,
   },
   username: {
     type: String,
     required: true,
     trim: true,
+    index: true,
   },
   description: {
     type: String,
@@ -28,6 +30,17 @@ const StarSchema = new Schema({
     trim: true,
   },
 })
+
+
+StarSchema.index(
+  {
+    githubRepository: 1,
+    username: 1,
+  },
+  {
+    unique: true,
+  })
+
 
 StarSchema.plugin(timestamps)
 

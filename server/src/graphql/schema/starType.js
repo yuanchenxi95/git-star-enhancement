@@ -19,7 +19,7 @@ const starType = new GraphQLObjectType({
     Tags: {
       type: GraphQLList(require('./tagType')),
       resolve: async (parentValue) => {
-        console.log(parentValue)
+        // console.log(parentValue)
 
         const res = _.map(parentValue.tags, (tag) => {
           return {

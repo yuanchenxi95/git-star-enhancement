@@ -22,7 +22,7 @@ const tagType = new GraphQLObjectType({
             '$in': parentValue.tagName,
           },
         })
-        console.log(res)
+        // console.log(res)
         return res
       },
     },

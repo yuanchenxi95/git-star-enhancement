@@ -6,5 +6,5 @@
 
 module.exports = {
   secret: 'AddOneSecond',
-  mongodbURI: process.env.MONGODB_URI,
+  mongodbURI: 'mongodb://localhost:27017/github-star-enhancement',
 }

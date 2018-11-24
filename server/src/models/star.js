@@ -41,6 +41,12 @@ StarSchema.index(
     unique: true,
   })
 
+StarSchema.index({
+  description: 'text',
+}, {
+  name: 'descriptionText',
+})
+
 
 StarSchema.plugin(timestamps)
 

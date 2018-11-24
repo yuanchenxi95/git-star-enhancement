@@ -21,20 +21,6 @@ const mutation = new GraphQLObjectType({
         return starModules.createStar(args)
       },
     },
-    // editStar: {
-    //   type: StarType,
-    //   args: {
-    //     id: { type: GraphQLNonNull(GraphQLID) },
-    //     username: { type: GraphQLString },
-    //     githubRepository: { type: GraphQLString },
-    //     description: { type: GraphQLString },
-    //     tags: { type: GraphQLList(GraphQLString) },
-    //   },
-    //   resolve(parentValue, args) {
-    //     // TODO validate privilege
-    //     return starModules.editStar(args)
-    //   },
-    // },
     editStar: {
       type: StarType,
       args: {

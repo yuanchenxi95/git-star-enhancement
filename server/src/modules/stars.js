@@ -56,6 +56,27 @@ async function findStarsWithTagOrOperation(tags) {
   })
 }
 
+async function findAllTagsContainName(searchText) {
+  if (_.isNil(searchText)) {
+    searchText = ''
+  }
+  // escape the regex
+  const escapedSearchText = _.escapeRegExp(searchText)
+
+  const res = await StarModel.aggregate([
+    {
+      '$unwind' : '$tags',
+    },
+    {
+      '$match': { 'tags': new RegExp(escapedSearchText, 'i')},
+    },
+    {
+      '$group': { _id: '$tags'},
+    },
+  ])
+  console.log(res)
+}
+
 
 module.exports = {
   createStar,
@@ -63,4 +84,5 @@ module.exports = {
   deleteStar,
   findStars,
   findStarsWithTagOrOperation,
+  findAllTagsContainName,
 }

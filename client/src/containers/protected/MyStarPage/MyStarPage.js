@@ -1,64 +1,66 @@
 import { observer, inject } from 'mobx-react'
 import React, { Component } from 'react'
-import { CardTitle, Card, Form, FormGroup, Label, Input, TabContent, Button,
-  TabPane, Nav, NavItem, NavLink, ButtonGroup } from 'reactstrap'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { translate } from 'react-i18next'
-
+import { withNamespaces } from 'react-i18next'
+import { PropTypes as MobxPropTypes } from 'mobx-react'
 // import './ChineseTranslationPage.css'
 import { keys } from 'src/i18n/resources'
 
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
-
-const ExchangeRates = () => (
-  <Query
-    query={gql`
-      {
-        rates(currency: "USD") {
-          currency
-          rate
-        }
-      }
-    `}
-  >
-    {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
-
-      return data.rates.map(({ currency, rate }) => (
-        <div key={currency}>
-          <p>{`${currency}: ${rate}`}</p>
-        </div>
-      ));
-    }}
-  </Query>
-);
-
 @inject(stores => {
-  let {  } = stores
+  let { starsStore } = stores
+  const { loadStars, loading, error, stars } = starsStore
   return {
+    loadStars,
+    stars,
+    loading,
+    error,
   }
 })
-@translate()
+@withNamespaces()
 @observer
 class ChineseTranslationPage extends Component {
   constructor(props) {
     super(props)
+    this.renderStars = this.renderStars.bind(this)
   }
+
 
   static propTypes = {
     t: PropTypes.func.isRequired,
+    loadStars: PropTypes.func.isRequired,
+    stars: MobxPropTypes.observableArray,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string,
   }
 
 
+  componentDidMount() {
+    this.props.loadStars({
+      'username': 'yuanchenxi93',
+    })
+  }
+
+  renderStars() {
+    const { stars } = this.props
+
+    return (
+      <div>
+        {stars.map(star => {
+          return (
+            <div key={star.id}>
+              {star.githubRepository}
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   render() {
-    const { } = this.props
     return (
       <div>
         <h1>My star page</h1>
-        <ExchangeRates/>
+        {this.renderStars()}
       </div>
     )
   }

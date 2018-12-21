@@ -3,7 +3,8 @@ const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const merge = require('webpack-merge')
 
-// let api_end_point = process.env['API_END_POINT']
+let apiEndpoint = process.env['API_ENDPOINT']
+let graphqlEndpoint = process.env['GRAPHQL_ENDPOINT']
 // let app_key = process.env['APP_KEY']
 // let app_secret = process.env['APP_SECRET']
 
@@ -15,7 +16,8 @@ module.exports = merge(common, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        // 'API_END_POINT': JSON.stringify(api_end_point),
+        'API_ENDPOINT': JSON.stringify(apiEndpoint),
+        'GRAPHQL_ENDPOINT': JSON.stringify(graphqlEndpoint),
         // 'APP_KEY': JSON.stringify(app_key),
         // 'APP_SECRET': JSON.stringify(app_secret),
       },

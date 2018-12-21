@@ -4,7 +4,7 @@ import { Navbar, Nav, NavbarBrand, NavItem, NavbarToggler,
   NavLink, Collapse, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { FaLanguage } from 'react-icons/fa'
 
 import { ROOT, MY_STAR_PAGE } from '../constants/route'
@@ -18,7 +18,7 @@ import { keys } from 'src/i18n/resources'
     setLocaleToChinese,
   }
 })
-@translate()
+@withNamespaces()
 @observer
 class NavBar extends Component {
   constructor(props) {

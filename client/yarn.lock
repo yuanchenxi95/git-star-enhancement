@@ -4644,9 +4644,9 @@ react-dom@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.11.2"
 
-react-i18next@^8.3.8:
-  version "8.3.8"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-8.3.8.tgz#6f0f56d048cc10e60ae7ea1a8266e460261d6777"
+react-i18next@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-8.4.0.tgz#e9f0c5b9938b155eaa6051360614719c08cae72f"
   dependencies:
     "@babel/runtime" "^7.1.2"
     create-react-context "0.2.3"

@@ -6,3 +6,5 @@ config/env/env.json
 .env
 .idea
 data/
+
+yarn-error.log

@@ -1,9 +1,12 @@
 import { observable, action } from 'mobx'
-import _ from 'lodash'
 
 import {
   getStarsForUser,
 } from '../../apollo/queries/stars'
+
+import {
+  addStarMutation,
+} from '../../apollo/mutatations/stars'
 
 
 class StarsStore {
@@ -21,6 +24,24 @@ class StarsStore {
     self.stars = []
   }
 
+  @action async addStar({ username, githubRepository, description, tags }) {
+    self.error = null
+    self.loading = true
+
+    try {
+      const { data } = await addStarMutation({
+        username,
+        githubRepository,
+        description,
+        tags,
+      })
+      console.log(data)
+    } catch (err) {
+      self.error = err.message
+    }
+    self.loading = false
+  }
+
   @action async loadStars({ username }) {
     self.error = null
     self.loading = true
@@ -29,7 +50,6 @@ class StarsStore {
       const { data } = await getStarsForUser({
         username,
       })
-      console.log(data)
       self.stars = data.stars
     } catch (err) {
       self.error = err.message

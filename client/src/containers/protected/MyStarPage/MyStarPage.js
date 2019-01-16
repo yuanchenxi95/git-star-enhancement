@@ -3,14 +3,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import { PropTypes as MobxPropTypes } from 'mobx-react'
+import { Button } from 'reactstrap'
 // import './ChineseTranslationPage.css'
 import { keys } from 'src/i18n/resources'
 
 @inject(stores => {
   let { starsStore } = stores
-  const { loadStars, loading, error, stars } = starsStore
+  const { loadStars, loading, error, stars, addStar } = starsStore
   return {
     loadStars,
+    addStar,
     stars,
     loading,
     error,
@@ -28,6 +30,7 @@ class ChineseTranslationPage extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     loadStars: PropTypes.func.isRequired,
+    addStar: PropTypes.func.isRequired,
     stars: MobxPropTypes.observableArray,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.string,
@@ -36,7 +39,7 @@ class ChineseTranslationPage extends Component {
 
   componentDidMount() {
     this.props.loadStars({
-      'username': 'yuanchenxi93',
+      'username': 'yuanchenxi95',
     })
   }
 
@@ -57,9 +60,15 @@ class ChineseTranslationPage extends Component {
   }
 
   render() {
+    const { addStar } = this.props
+
     return (
       <div>
         <h1>My star page</h1>
+        <Button color="primary" onClick={() => addStar({
+          username: 'yuanchenxi95',
+          githubRepository: 'axios/axios',
+        })}>Add Star</Button>
         {this.renderStars()}
       </div>
     )

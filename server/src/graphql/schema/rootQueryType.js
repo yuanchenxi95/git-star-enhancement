@@ -49,8 +49,9 @@ const RootQuery = new GraphQLObjectType({
         githubRepository: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      resolve(parentValue, args) {
-        return starModules.findStars(args)
+      async resolve(parentValue, args) {
+        const res = await starModules.findStars(args)
+        return res
       },
     },
     starsOfTagsAndOperation: {
@@ -58,8 +59,8 @@ const RootQuery = new GraphQLObjectType({
       args: {
         tags: { type: GraphQLList(GraphQLString) },
       },
-      resolve(parentValue, args) {
-        return starModules.findStars(args)
+      async resolve(parentValue, args) {
+        return await starModules.findStars(args)
       },
     },
     starsWithTagOrOperation: {
@@ -67,9 +68,9 @@ const RootQuery = new GraphQLObjectType({
       args: {
         tags: { type: GraphQLList(GraphQLString) },
       },
-      resolve(parentValue, args) {
+      async resolve(parentValue, args) {
         const { tags } = args
-        return starModules.findStarsWithTagOrOperation(tags)
+        return await starModules.findStarsWithTagOrOperation(tags)
       },
     },
     tags: {
@@ -77,9 +78,9 @@ const RootQuery = new GraphQLObjectType({
       args: {
         searchText: { type: GraphQLString },
       },
-      resolve(parentValue, args) {
+      async resolve(parentValue, args) {
         const { searchText } = args
-        return starModules.findAllTagsContainName(searchText)
+        return await starModules.findAllTagsContainName(searchText)
       },
     },
   }),

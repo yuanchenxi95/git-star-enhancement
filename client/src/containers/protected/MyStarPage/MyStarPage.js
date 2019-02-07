@@ -5,13 +5,19 @@ import { withNamespaces } from 'react-i18next'
 import { PropTypes as MobxPropTypes } from 'mobx-react'
 import { Button } from 'reactstrap'
 // import './ChineseTranslationPage.css'
+
 import { keys } from 'src/i18n/resources'
+
+import AddStarModal from 'src/components/AddStarModal'
+import StarCard from 'src/components/StarCard'
+
 
 @inject(stores => {
   let { starsStore } = stores
-  const { loadStars, loading, error, stars, addStar } = starsStore
+  const { loadStars, removeStar, loading, error, stars, addStar } = starsStore
   return {
     loadStars,
+    removeStar,
     addStar,
     stars,
     loading,
@@ -30,6 +36,7 @@ class ChineseTranslationPage extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     loadStars: PropTypes.func.isRequired,
+    removeStar: PropTypes.func.isRequired,
     addStar: PropTypes.func.isRequired,
     stars: MobxPropTypes.observableArray,
     loading: PropTypes.bool.isRequired,
@@ -38,21 +45,17 @@ class ChineseTranslationPage extends Component {
 
 
   componentDidMount() {
-    this.props.loadStars({
-      'username': 'yuanchenxi95',
-    })
+    this.props.loadStars()
   }
 
   renderStars() {
-    const { stars } = this.props
+    const { stars, removeStar } = this.props
 
     return (
       <div>
         {stars.map(star => {
           return (
-            <div key={star.id}>
-              {star.githubRepository}
-            </div>
+            <StarCard key={star.id} star={star} removeStar={removeStar} />
           )
         })}
       </div>
@@ -65,10 +68,7 @@ class ChineseTranslationPage extends Component {
     return (
       <div>
         <h1>My star page</h1>
-        <Button color="primary" onClick={() => addStar({
-          username: 'yuanchenxi95',
-          githubRepository: 'axios/axios',
-        })}>Add Star</Button>
+        <AddStarModal addStar={addStar}/>
         {this.renderStars()}
       </div>
     )

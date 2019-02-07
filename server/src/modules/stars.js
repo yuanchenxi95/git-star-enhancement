@@ -15,7 +15,7 @@ async function createStar(args) {
 }
 
 async function deleteStar(id) {
-  return StarModel.findById(id).remove()
+  return StarModel.findByIdAndDelete(id)
 }
 
 async function editStar(args) {

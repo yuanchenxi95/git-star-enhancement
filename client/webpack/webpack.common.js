@@ -82,7 +82,7 @@ module.exports = {
           enforce: true,
         },
       },
-      maxSize: 200 * 1024, // 200kB
+      maxSize: 200 * 1024 * 1024, // 200kB
     },
   },
   plugins: [

@@ -17,11 +17,30 @@ const ADD_STAR_MUTATION = gql`
   }
 `
 
+const REMOVE_STAR_MUTATION = gql`
+  mutation removeStar($id: ID!) {
+    removeStar(id: $id) {
+      id
+    }
+  }
+`
+
 export async function addStarMutation({ username, githubRepository, description, tags }) {
   const res = await client.mutate({
     mutation: ADD_STAR_MUTATION,
     variables: {
       username, githubRepository, description, tags,
+    },
+  })
+  return res
+}
+
+
+export async function removeStarMutation({ id }) {
+  const res = await client.mutate({
+    mutation: REMOVE_STAR_MUTATION,
+    variables: {
+      id,
     },
   })
   return res

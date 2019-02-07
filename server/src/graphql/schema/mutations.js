@@ -16,9 +16,9 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      resolve(parentValue, args) {
+      async resolve(parentValue, args) {
         // TODO validate privilege
-        return starModules.createStar(args)
+        return await starModules.createStar(args)
       },
     },
     editStar: {
@@ -28,9 +28,9 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      resolve(parentValue, args) {
+      async resolve(parentValue, args) {
         // TODO validate privilege
-        return starModules.editStar(args)
+        return await starModules.editStar(args)
       },
     },
     removeStar: {
@@ -38,9 +38,9 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parentValue, args) {
+      async resolve(parentValue, args) {
         // TODO validate privilege
-        return starModules.deleteStar(args.id)
+        return await starModules.deleteStar(args.id)
       },
     },
   },

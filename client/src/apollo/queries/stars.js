@@ -8,6 +8,8 @@ export const STAR_QUERY = gql`
     stars(username: $username) {
       id
       githubRepository
+      username
+      description
       Tags {
         tagName
       }
@@ -22,6 +24,7 @@ export async function getStarsForUser({ username }) {
     variables: {
       username,
     },
+    fetchPolicy: 'network-only',
   })
   return res
 }

@@ -73,8 +73,15 @@ async function findAllTagsContainName(searchText) {
     {
       '$group': { _id: '$tags'},
     },
+    {
+      '$project': {
+        tagName: '$_id',
+        _id: 0,
+      },
+    },
   ])
   console.log(res)
+  return res
 }
 
 

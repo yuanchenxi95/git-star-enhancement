@@ -5,6 +5,7 @@ import {
   ROOT,
   PUBLIC,
   PROTECTED,
+  GITHUB_CALLBACK,
 } from '../constants/route'
 import NavBar from 'src/components/NavBar'
 
@@ -12,6 +13,7 @@ import FallbackPage from './FallbackPage'
 import HomePage from './HomePage'
 import PublicRoutePage from './public/PublicRoutePage'
 import ProtectedRoutePage from './protected/ProtectedRoutePage'
+import GithubPage from './github/index'
 
 class RoutePage extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class RoutePage extends Component {
         <Switch>
           <Route exact path={ROOT} component={HomePage} />
           <Route path={PUBLIC} component={PublicRoutePage} />
+          <Route path={GITHUB_CALLBACK} component={GithubPage} />
           <Route path={PROTECTED} component={ProtectedRoutePage} />
           <Route component={FallbackPage}/>
         </Switch>

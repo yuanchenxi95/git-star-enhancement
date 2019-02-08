@@ -1,7 +1,7 @@
 
 // import STAR_QUERY from '../graphql/stars.graphql'
 import gql from 'graphql-tag'
-import client from '../apollo'
+import client  from '../apollo'
 
 export const STAR_QUERY = gql`
   query getStarsOfUser($username: String!) {

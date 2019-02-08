@@ -44,7 +44,6 @@ class AddStarModal extends Component {
 
   addStar() {
     const { githubRepository, description, tags } = this.state
-    debugger
     this.props.addStar({ githubRepository, description, tags })
     this.toggle()
   }

@@ -5,6 +5,7 @@ import i18n from 'src/i18n'
 import i18nStore from './i18n/index'
 import routingStore from './routing/index'
 import starsStore from './stars/index'
+import tagsStore from './tags/index'
 
 reaction(
   () => i18nStore.locale,
@@ -17,6 +18,7 @@ const stores = {
   routingStore,
   i18nStore,
   starsStore,
+  tagsStore,
 }
 
 export default stores

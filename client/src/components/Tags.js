@@ -105,7 +105,7 @@ class Tags extends Component {
       <div>
         {this.renderTags()}
         <FormGroup>
-          <Label for="tag">New Tag</Label>
+          <Label for="tag">Tag</Label>
           <Input
             type="text"
             name="tag"

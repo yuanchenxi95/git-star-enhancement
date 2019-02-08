@@ -10,13 +10,18 @@ import { keys } from 'src/i18n/resources'
 
 import AddStarModal from 'src/components/AddStarModal'
 import StarCard from 'src/components/StarCard'
+import Tags from 'src/components/Tags'
 
 
 @inject(stores => {
-  let { starsStore } = stores
-  const { loadStars, removeStar, loading, error, stars, addStar } = starsStore
+  let { starsStore, tagsStore } = stores
+  const { loadStars, loadStarsWithTags, removeStar, loading, error, stars, addStar } = starsStore
+  const { loadTags, setSelectedTags } = tagsStore
   return {
+    loadTags,
+    setSelectedTags,
     loadStars,
+    loadStarsWithTags,
     removeStar,
     addStar,
     stars,
@@ -26,7 +31,7 @@ import StarCard from 'src/components/StarCard'
 })
 @withNamespaces()
 @observer
-class ChineseTranslationPage extends Component {
+class MyStarPage extends Component {
   constructor(props) {
     super(props)
     this.renderStars = this.renderStars.bind(this)
@@ -35,7 +40,10 @@ class ChineseTranslationPage extends Component {
 
   static propTypes = {
     t: PropTypes.func.isRequired,
+    setSelectedTags: PropTypes.func.isRequired,
+    loadTags: PropTypes.func.isRequired,
     loadStars: PropTypes.func.isRequired,
+    loadStarsWithTags: PropTypes.func.isRequired,
     removeStar: PropTypes.func.isRequired,
     addStar: PropTypes.func.isRequired,
     stars: MobxPropTypes.observableArray,
@@ -45,6 +53,7 @@ class ChineseTranslationPage extends Component {
 
 
   componentDidMount() {
+    this.props.loadTags()
     this.props.loadStars()
   }
 
@@ -63,11 +72,14 @@ class ChineseTranslationPage extends Component {
   }
 
   render() {
-    const { addStar } = this.props
+    const { addStar, setSelectedTags, loadStarsWithTags } = this.props
 
     return (
       <div>
         <h1>My star page</h1>
+        <Tags setTags={setSelectedTags}/>
+        <Button onClick={() => loadStarsWithTags()} color={'success '} block >Search</Button>
+        <br/>
         <AddStarModal addStar={addStar}/>
         {this.renderStars()}
       </div>
@@ -75,4 +87,4 @@ class ChineseTranslationPage extends Component {
   }
 }
 
-export default ChineseTranslationPage
+export default MyStarPage

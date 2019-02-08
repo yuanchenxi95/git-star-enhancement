@@ -1,7 +1,10 @@
 import { observable, action } from 'mobx'
 
+import tagsStore from '../tags'
+
 import {
   getStarsForUser,
+  getStarsForUserWithTags,
 } from '../../apollo/queries/stars'
 
 import {
@@ -60,6 +63,24 @@ class StarsStore {
         id,
       })
       await self.loadStars({ username })
+    } catch (err) {
+      self.error = err.message
+    }
+    self.loading = false
+  }
+
+  @action async loadStarsWithTags() {
+    self.error = null
+    self.loading = true
+    const { username } = self
+    const { selectedTags } = tagsStore
+
+    try {
+      const { data } = await getStarsForUserWithTags({
+        username,
+        tags: selectedTags,
+      })
+      self.stars = data.starsWithTagOrOperation
     } catch (err) {
       self.error = err.message
     }

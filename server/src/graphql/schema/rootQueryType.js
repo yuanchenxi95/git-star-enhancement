@@ -16,7 +16,7 @@ const RootQuery = new GraphQLObjectType({
         githubRepository: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      async resolve(parentValue, args) {
+      async resolve(parentValue, args, req) {
         return await starModules.findStars(args)
       },
     },

@@ -1,14 +1,17 @@
 'use strict'
 module.exports = function (app) {
+  const expressGraphQL = require('express-graphql')
 
   const config = require('../config')
-  const expressGraphQL = require('express-graphql')
   const schema = require('./schema/schema')
-
-  app.use('/graphql', expressGraphQL({
-    schema,
-    graphiql: config.env === 'development',
-  }))
+  const { verifyToken }  = require('../passport/jwt')
+  app.use('/graphql',
+    verifyToken,
+    expressGraphQL({
+      schema,
+      graphiql: config.env === 'development',
+    })
+  )
 
 
 

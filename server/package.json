@@ -34,6 +34,8 @@
     "mongoose-autopopulate": "^0.8.0",
     "mongoose-timestamp": "^0.6.0",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "pug": "^2.0.3",
     "winston": "^3.0.0"
   },

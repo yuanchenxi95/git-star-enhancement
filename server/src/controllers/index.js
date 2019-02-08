@@ -2,7 +2,6 @@
 module.exports = function (app) {
   const express = require('express')
   const { asyncErrorWrapper } = require('../utils')
-  const { checkJwt } = require('../middlewares/jwt')
 
   const apiRouter = express.Router()
   app.use('/api', apiRouter)
@@ -11,13 +10,12 @@ module.exports = function (app) {
     res.send('Hello World')
   }))
 
-  apiRouter.get('/protectedHello',
-    checkJwt,
-    asyncErrorWrapper(async function(req, res) {
-      console.log(req.user)
-      res.send('Protected Hello')
-    }),
-  )
+  // apiRouter.get('/protectedHello',
+  //   asyncErrorWrapper(async function(req, res) {
+  //     console.log(req.user)
+  //     res.send('Protected Hello')
+  //   }),
+  // )
 
 
 }

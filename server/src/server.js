@@ -26,6 +26,7 @@ fs.readdirSync(models)
 
 // Bootstrap routes
 require('./express')(app)
+require('./passport/github')(app)
 require('./controllers')(app)
 require('./graphql')(app)
 require('./middlewares/errorHandler')(app)

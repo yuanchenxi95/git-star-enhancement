@@ -2,7 +2,6 @@ const graphql = require('graphql')
 const {
   GraphQLObjectType,
   GraphQLList,
-  GraphQLID,
   GraphQLNonNull,
   GraphQLString,
 } = graphql
@@ -22,7 +21,6 @@ const tagType = new GraphQLObjectType({
             '$in': parentValue.tagName,
           },
         })
-        // console.log(res)
         return res
       },
     },

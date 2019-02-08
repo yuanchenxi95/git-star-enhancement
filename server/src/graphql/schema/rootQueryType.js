@@ -1,5 +1,5 @@
 const graphql = require('graphql')
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLString, GraphQLNonNull } = graphql
+const { GraphQLObjectType, GraphQLList, GraphQLString } = graphql
 
 const StarType = require('./starType')
 const TagType = require('./tagType')
@@ -32,11 +32,16 @@ const RootQuery = new GraphQLObjectType({
     starsWithTagOrOperation: {
       type: new GraphQLList(StarType),
       args: {
+        username: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
       async resolve(parentValue, args) {
-        const { tags } = args
-        return await starModules.findStarsWithTagOrOperation(tags)
+        const { tags, username } = args
+        if (tags.length === 0) {
+          return await starModules.findStars({ username })
+        } else {
+          return await starModules.findStarsWithTagOrOperation(username, tags)
+        }
       },
     },
     tags: {

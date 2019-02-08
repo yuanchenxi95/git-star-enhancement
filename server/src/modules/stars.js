@@ -48,8 +48,9 @@ async function findStars(args) {
   return StarModel.find(newArgs)
 }
 
-async function findStarsWithTagOrOperation(tags) {
+async function findStarsWithTagOrOperation(username, tags) {
   return StarModel.find({
+    username,
     tags: {
       '$in': tags,
     },
@@ -80,7 +81,6 @@ async function findAllTagsContainName(searchText) {
       },
     },
   ])
-  console.log(res)
   return res
 }
 

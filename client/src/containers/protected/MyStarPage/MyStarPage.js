@@ -6,7 +6,7 @@ import { PropTypes as MobxPropTypes } from 'mobx-react'
 import { Button } from 'reactstrap'
 // import './ChineseTranslationPage.css'
 
-import { keys } from 'src/i18n/resources'
+// import { keys } from 'src/i18n/resources'
 
 import AddStarModal from 'src/components/AddStarModal'
 import StarCard from 'src/components/StarCard'

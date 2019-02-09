@@ -14,7 +14,6 @@ import i18n from './i18n'
 
 const history = syncHistoryWithStore(hashHistory, stores.routingStore)
 const rootElement = document.getElementById('45118caa-2c77-49d9-a293-4ce25d37c43c')
-import { STAR_QUERY } from './apollo/queries/stars'
 
 if (rootElement) {
   ReactDOM.render(

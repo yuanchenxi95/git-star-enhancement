@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
-import {Button, FormGroup, Input, Label, ListGroup, ListGroupItem} from "reactstrap"
+import {Button, FormGroup, Input, Label, ListGroup, ListGroupItem} from 'reactstrap'
 import findIndex from 'lodash/findIndex'
 import filter from 'lodash/filter'
 import map from 'lodash/map'

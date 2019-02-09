@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import { FaLanguage } from 'react-icons/fa'
 
-import { ROOT, MY_STAR_PAGE } from '../constants/route'
+import { MY_STAR_PAGE } from '../constants/route'
 import { keys } from 'src/i18n/resources'
 
 @inject(stores => {

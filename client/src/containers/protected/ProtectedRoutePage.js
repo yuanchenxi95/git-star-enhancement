@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 // import _ from 'lodash'
+import isNil from 'lodash/isNil'
 
 import {
   LOGIN_PAGE,
@@ -43,7 +44,7 @@ class ProtectedRoutePage extends Component {
   render() {
     const { xAccessToken } = this.props
 
-    if (_.isNil(xAccessToken)) {
+    if (isNil(xAccessToken)) {
       return <Redirect to={LOGIN_PAGE}/>
     }
 

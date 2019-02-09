@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next'
 import { Button } from 'reactstrap'
 // import './ChineseTranslationPage.css'
 
-import { keys } from 'src/i18n/resources'
+// import { keys } from 'src/i18n/resources'
 import { redirectToLogin } from '../../../util/index'
 
 //

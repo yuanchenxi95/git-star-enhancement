@@ -4,7 +4,7 @@ import { withNamespaces } from 'react-i18next'
 import PropTypes from 'prop-types'
 import { Button } from 'reactstrap'
 
-import { keys } from '../i18n/resources'
+// import { keys } from '../i18n/resources'
 import { inject } from 'mobx-react'
 
 

@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const path = require('path')
+// const path = require('path')
 const express = require('express')
 const compression = require('compression')
 const bodyParser = require('body-parser')
@@ -15,7 +15,6 @@ const config = require('./config')
 
 
 const env = process.env.NODE_ENV || 'development'
-
 
 
 module.exports = function (app) {
@@ -29,7 +28,7 @@ module.exports = function (app) {
   app.use(cors())
 
   // Static files middleware
-  app.use(express.static(config.root + '/public'))
+  app.use('/public', express.static(config.root + 'build'))
 
   // bodyParser should be above methodOverride
   app.use(bodyParser.json({limit: '10mb'}))
@@ -37,8 +36,8 @@ module.exports = function (app) {
   app.use(methodOverride())
 
   // use pug as view engine
-  app.set('views', path.join(__dirname, 'views'))
-  app.set('view engine', 'pug')
+  // app.set('views', path.join(__dirname, 'views'))
+  // app.set('view engine', 'pug')
 
 
   if (env === 'development') {

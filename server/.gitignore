@@ -5,6 +5,7 @@ config/env/env.json
 .DS_Store
 .env
 .idea
+build/
 data/
 
 yarn-error.log

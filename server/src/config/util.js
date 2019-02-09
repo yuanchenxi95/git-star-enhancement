@@ -3,6 +3,10 @@ const _ = require('lodash')
 const requiredEnvList = [
   'secret',
   'mongodbURI',
+  'githubClientId',
+  'githubClientSecret',
+  'githubCallbackUrl',
+  'clientHost',
   'port',
 ]
 

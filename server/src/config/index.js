@@ -14,6 +14,7 @@ const production = require('./env/production')
 const defaults = {
   port: process.env.PORT || 3000,
   env: process.env.NODE_ENV || 'development',
+  root: './',
 }
 
 /**

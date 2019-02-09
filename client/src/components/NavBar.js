@@ -11,11 +11,14 @@ import { ROOT, MY_STAR_PAGE } from '../constants/route'
 import { keys } from 'src/i18n/resources'
 
 @inject(stores => {
-  const { i18nStore } = stores
+  const { i18nStore, authenticationStore } = stores
   const { setLocaleToEnglish, setLocaleToChinese } = i18nStore
+  const { logOut } = authenticationStore
+
   return {
     setLocaleToEnglish,
     setLocaleToChinese,
+    logOut,
   }
 })
 @withNamespaces()
@@ -37,6 +40,7 @@ class NavBar extends Component {
     t: PropTypes.func.isRequired,
     setLocaleToEnglish: PropTypes.func.isRequired,
     setLocaleToChinese: PropTypes.func.isRequired,
+    logOut: PropTypes.func.isRequired,
     // logOut: PropTypes.func.isRequired,
   }
 
@@ -54,7 +58,7 @@ class NavBar extends Component {
 
 
   renderNavBarList() {
-    const { t } = this.props
+    const { t, logOut } = this.props
     return (
       <div>
         <NavbarToggler onClick={this.toggleListDropDown} />
@@ -63,6 +67,11 @@ class NavBar extends Component {
             <NavItem>
               <NavLink tag={Link} to={MY_STAR_PAGE}>
                 {t(keys.myStarsList)}
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={() => { logOut() }}>
+                Log Out
               </NavLink>
             </NavItem>
           </Nav>
@@ -77,7 +86,7 @@ class NavBar extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand tag={Link} to={ROOT}>
+          <NavbarBrand tag={Link} to={MY_STAR_PAGE}>
             {t(keys.appName)}
           </NavbarBrand>
           {this.renderNavBarList()}

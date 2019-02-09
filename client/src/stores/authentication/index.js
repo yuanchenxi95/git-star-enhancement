@@ -25,6 +25,10 @@ class authenticationStore {
     setAccessToken(token)
   }
 
+  @action logOut() {
+    self.setXAccessToken(null)
+  }
+
 }
 
 const self = new authenticationStore()

@@ -10,4 +10,5 @@ module.exports = {
   githubClientId: '8e4b7150b0e12cec1616',
   githubClientSecret: process.env['GITHUB_CLIENT_SECRET'],
   githubCallbackUrl: 'http://127.0.0.1:3000/auth/github/callback',
+  clientHost: 'http://localhost:8080/',
 }

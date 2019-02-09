@@ -33,12 +33,10 @@ module.exports = function(app) {
   app.get('/auth/github', passport.authenticate('github'))
 
   app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/auth/github' }),
+    passport.authenticate('github', { failureRedirect: config.clientHost }),
     function(req, res) {
       const token = generateJwtTokenForUser(req.user)
-      res.json({
-        token,
-      })
+      res.redirect(`${config.clientHost}/#/github/callback/${token}`)
     })
 
   app.get('/auth/github/profile', verifyToken, async (req, res) => {

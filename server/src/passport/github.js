@@ -6,13 +6,26 @@ module.exports = function(app) {
 
   const { generateJwtTokenForUser, verifyToken } = require('./jwt')
 
+  function generateProfile(accessToken, profile) {
+    const { displayName, username, profileUrl, _json } = profile
+    const { avatar_url } = _json
+    const obj = {
+      displayName,
+      username,
+      profileUrl,
+      accessToken,
+      avatar_url,
+    }
+    return obj
+  }
+
   passport.use(new GitHubStrategy({
       clientID: config.githubClientId,
       clientSecret: config.githubClientSecret,
       callbackURL: config.githubCallbackUrl,
     },
     function(accessToken, refreshToken, profile, cb) {
-      const obj = Object.assign({ accessToken }, profile)
+      const obj = generateProfile(accessToken, profile)
       return cb(null, obj)
     }
 

@@ -13,12 +13,14 @@ const InvalidIdFormat = generateCode(INVALID_ID_FORMAT, 'Invalid ID format')
 const InternalServerError = generateCode(INTERNAL_SERVER_ERROR, 'Internal Server Error')
 
 
-const FailToValidateToken = generateCode(120, 'Fail to Validate Token')
-const NoTokenProvided = generateCode(121, 'No Token Provided')
+const FailToValidateToken = generateCode('fail_to_validate_token', 'Fail to Validate Token')
+const NoTokenProvided = generateCode('no_token_provided', 'No Token Provided')
+const AccessTokenExpired = generateCode('access_token_expired', 'Access Token Expired')
 
 module.exports = {
   InvalidIdFormat,
   InternalServerError,
   FailToValidateToken,
   NoTokenProvided,
+  AccessTokenExpired,
 }

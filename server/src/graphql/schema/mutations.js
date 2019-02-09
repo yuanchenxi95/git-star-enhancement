@@ -5,6 +5,9 @@ const { starModules } = require('../../modules')
 
 const StarType = require('./starType')
 
+const { validatePrivilege } = require('../../utils/validatePrivilege')
+const { UnauthorizedError } = require('../errors')
+
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
@@ -16,8 +19,10 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      async resolve(parentValue, args) {
-        // TODO validate privilege
+      async resolve(parentValue, args, req) {
+        if (!validatePrivilege(args.username, req.profile)) {
+          throw new UnauthorizedError()
+        }
         return await starModules.createStar(args)
       },
     },
@@ -28,8 +33,10 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLString },
         tags: { type: GraphQLList(GraphQLString) },
       },
-      async resolve(parentValue, args) {
-        // TODO validate privilege
+      async resolve(parentValue, args, req) {
+        if (!validatePrivilege(args.username, req.profile)) {
+          throw new UnauthorizedError()
+        }
         return await starModules.editStar(args)
       },
     },
@@ -38,8 +45,10 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      async resolve(parentValue, args) {
-        // TODO validate privilege
+      async resolve(parentValue, args, req) {
+        if (!validatePrivilege(args.username, req.profile)) {
+          throw new UnauthorizedError()
+        }
         return await starModules.deleteStar(args.id)
       },
     },

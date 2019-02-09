@@ -40,8 +40,11 @@ async function verifyToken(req, res, next) {
       return res.status(401).json(NoTokenProvided)
     }
 
-    req.profile  = await decodeToken(token)
+    const profile  = await decodeToken(token)
+
+    req.profile = profile
     return next()
+
   } catch(error) {
     return res.status(401).json(FailToValidateToken)
   }

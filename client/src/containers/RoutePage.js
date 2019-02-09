@@ -7,7 +7,7 @@ import {
   PROTECTED,
   GITHUB_CALLBACK,
 } from '../constants/route'
-import NavBar from 'src/components/NavBar'
+// import NavBar from 'src/components/NavBar'
 
 import FallbackPage from './FallbackPage'
 import HomePage from './HomePage'
@@ -23,7 +23,7 @@ class RoutePage extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        {/*<NavBar/>*/}
         <Switch>
           <Route exact path={ROOT} component={HomePage} />
           <Route path={PUBLIC} component={PublicRoutePage} />

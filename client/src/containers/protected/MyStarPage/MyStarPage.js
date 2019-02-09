@@ -14,7 +14,7 @@ import Tags from 'src/components/Tags'
 
 
 @inject(stores => {
-  let { starsStore, tagsStore } = stores
+  const { starsStore, tagsStore } = stores
   const { loadStars, loadStarsWithTags, removeStar, loading, error, stars, addStar } = starsStore
   const { loadTags, setSelectedTags } = tagsStore
   return {

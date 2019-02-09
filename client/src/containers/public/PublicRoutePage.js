@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 // import PropTypes from 'prop-types'
 // import _ from 'lodash'
-import { observer } from 'mobx-react/index'
+import {observer, inject } from 'mobx-react/index'
+import PropTypes from 'prop-types'
 
 import {
-  CHINESE_TRANSLATION,
+  LOGIN_PAGE,
+  MY_STAR_PAGE,
 } from 'src/constants/route'
 
 import { generateLoadablePage } from 'src/util/loadablePage'
@@ -13,17 +15,41 @@ import { generateLoadablePage } from 'src/util/loadablePage'
 import FallbackPage  from '../FallbackPage'
 // const ChineseTranslationPage = generateLoadablePage(import('./ChineseTranslationPage/ChineseTranslationPage'))
 
+
+const LoginPage = generateLoadablePage(import('./LoginPage/LoginPage'))
+
+@inject(stores => {
+  const { authenticationStore } = stores
+  const { xAccessToken } = authenticationStore
+
+  return {
+    xAccessToken,
+  }
+})
 @observer
 class PublicRoutePage extends Component {
   constructor(props) {
     super(props)
   }
 
+
+  static propTypes = {
+    xAccessToken: PropTypes.string,
+  }
+
   render() {
+
+    const { xAccessToken } = this.props
+
+    if (!_.isNil(xAccessToken)) {
+      return <Redirect to={MY_STAR_PAGE}/>
+
+    }
     return (
       <div>
         <Switch>
           {/*<Route path={CHINESE_TRANSLATION} component={ChineseTranslationPage} />*/}
+          <Route path={LOGIN_PAGE} component={LoginPage} />
           <Route component={FallbackPage}/>
         </Switch>
       </div>

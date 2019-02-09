@@ -17,7 +17,7 @@ const apolloClient = new ApolloClient({
 function getContext() {
   return {
     headers: {
-      'x-access-token': authenticationStore.xAccessToken
+      'x-access-token': authenticationStore.xAccessToken,
     },
   }
 }

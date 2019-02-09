@@ -5,8 +5,16 @@ import PropTypes from 'prop-types'
 import { Button } from 'reactstrap'
 
 import { keys } from '../i18n/resources'
-import { redirectToLogin } from '../util/index'
+import { inject } from 'mobx-react'
 
+
+@inject(stores => {
+  let { redirectingStore } = stores
+  let { redirectToLoginPage } = redirectingStore
+  return {
+    redirectToLoginPage,
+  }
+})
 @withNamespaces()
 class HomePage extends Component {
   constructor(props) {
@@ -15,18 +23,20 @@ class HomePage extends Component {
 
   static propTypes = {
     t: PropTypes.func.isRequired,
+    redirectToLoginPage: PropTypes.func.isRequired,
   }
 
 
 
   render() {
-    const { t } = this.props
+    // const { t } = this.props
+    const { redirectToLoginPage } = this.props
 
     return (
       <div>
-        <h1>{t(keys.homePageText)}</h1>
-        <Button onClick={redirectToLogin} block color={'success'}>
-          Login with GitHub
+        <h1>Home Page</h1>
+        <Button onClick={redirectToLoginPage} block color={'success'}>
+          Login
         </Button>
 
         <br/>

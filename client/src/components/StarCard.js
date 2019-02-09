@@ -29,7 +29,6 @@ class StarCard extends Component {
 
 
   renderTags(Tags) {
-    console.log(Tags)
     return map(Tags, (t, idx) => {
 
       return (

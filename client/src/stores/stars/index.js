@@ -12,21 +12,16 @@ import {
   removeStarMutation,
 } from '../../apollo/mutatations/stars'
 
+import authenticationStore from '../authentication/index'
 
 class StarsStore {
   @observable error = null
   @observable loading = false
-  @observable username = ''
   @observable stars = []
 
   constructor() {
-    // TODO remove this
-    this.username = 'yuanchenxi95'
   }
 
-  @action setUsername(username) {
-    self.username = username
-  }
 
   @action resetData() {
     self.error = null
@@ -37,7 +32,7 @@ class StarsStore {
   @action async addStar({ githubRepository, description, tags }) {
     self.error = null
     self.loading = true
-    const { username } = self
+    const { username } = authenticationStore
     try {
       await addStarMutation({
         username,
@@ -56,7 +51,7 @@ class StarsStore {
   @action async removeStar({ id }) {
     self.error = null
     self.loading = true
-    const { username } = self
+    const { username } = authenticationStore
 
     try {
       await removeStarMutation({
@@ -72,7 +67,7 @@ class StarsStore {
   @action async loadStarsWithTags() {
     self.error = null
     self.loading = true
-    const { username } = self
+    const { username } = authenticationStore
     const { selectedTags } = tagsStore
 
     try {
@@ -90,8 +85,7 @@ class StarsStore {
   @action async loadStars() {
     self.error = null
     self.loading = true
-    const { username } = self
-
+    const { username } = authenticationStore
     try {
       const { data } = await getStarsForUser({
         username,

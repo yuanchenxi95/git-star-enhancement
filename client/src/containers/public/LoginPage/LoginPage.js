@@ -42,7 +42,7 @@ class LoginPage extends Component {
     return (
       <div>
         <h1>Login Page</h1>
-        <Button onClick={redirectToLogin} block color={'success'}>
+        <Button onClick={redirectToLogin} block color={'primary'}>
           Login with GitHub
         </Button>
       </div>

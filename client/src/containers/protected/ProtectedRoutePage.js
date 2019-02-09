@@ -20,10 +20,11 @@ const MyStarPage = generateLoadablePage(import('./MyStarPage/MyStarPage'))
 
 @inject(stores => {
   const { authenticationStore } = stores
-  let { xAccessToken } = authenticationStore
+  let { xAccessToken, getGithubProfile, loading } = authenticationStore
   return {
+    loading,
     xAccessToken,
-    // validateToken,
+    getGithubProfile,
   }
 })
 @observer
@@ -33,16 +34,27 @@ class ProtectedRoutePage extends Component {
   }
 
   componentDidMount() {
-    // this.props.validateToken()
+    this.props.getGithubProfile()
   }
 
   static propTypes = {
+    loading: PropTypes.bool.isRequired,
     xAccessToken: PropTypes.string,
+    getGithubProfile: PropTypes.func.isRequired,
     // validateToken: PropTypes.func,
   }
 
   render() {
-    const { xAccessToken } = this.props
+    const { xAccessToken, loading } = this.props
+
+    // TODO add loading page
+    if (loading) {
+      return (
+        <div>
+          Loading
+        </div>
+      )
+    }
 
     if (isNil(xAccessToken)) {
       return <Redirect to={LOGIN_PAGE}/>

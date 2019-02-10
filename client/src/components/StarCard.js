@@ -46,7 +46,9 @@ class StarCard extends Component {
     return (
       <Card>
         <CardHeader>
-          <b>{githubRepository}</b>
+          <a target='_blank' rel='noopener noreferrer' href={`https://github.com/${githubRepository}`}>
+            <b>{githubRepository}</b>
+          </a>
           <Button
             color={'secondary'}
             size='sm'

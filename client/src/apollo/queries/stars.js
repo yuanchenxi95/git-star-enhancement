@@ -27,7 +27,7 @@ export const TAG_QUERY = gql`
 `
 
 export const STARS_WITH_TAGS_OR_QUERY = gql`
-  query findStarsWithTagOrOperation($username: String, $tags: [String]) {
+  query findStarsWithTagOrOperation($username: String!, $tags: [String]) {
     starsWithTagOrOperation(username: $username, tags: $tags) {
       id
       githubRepository

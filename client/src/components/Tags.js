@@ -76,7 +76,8 @@ class Tags extends Component {
   handleAddition(tag) {
     const { setTags } = this.props
     const { tags } = this.state
-    if (findIndex(tags, tag) === -1) {
+
+    if (findIndex(tags, (t) => t === tag) === -1) {
       const newTags = tags.concat([tag])
       this.setField('tags', newTags)
       setTags(newTags)

@@ -40,8 +40,8 @@ class StarCard extends Component {
 
 
   renderTags(tags) {
+    console.log(tags)
     return map(tags, (t, idx) => {
-
       return (
         <Fragment key={idx}>
           <Badge color='dark'>{t}</Badge>
@@ -66,12 +66,11 @@ class StarCard extends Component {
           />
 
           <Row>
-            <Col xs="3">
+            <Col xs="9">
               <a target='_blank' rel='noopener noreferrer' href={`https://github.com/${githubRepository}`}>
                 <b>{githubRepository}</b>
               </a>
             </Col>
-            <Col xs="6">{' '}</Col>
             <Col xs="3">
               <ButtonGroup className={'float-right'}>
                 <Button

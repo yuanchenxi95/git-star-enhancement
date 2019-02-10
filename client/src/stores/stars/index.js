@@ -16,10 +16,13 @@ import {
 import authenticationStore from '../authentication/index'
 
 function mapTagNameToTags(stars) {
-  stars.forEach((star) => {
-    star.tags = map(star.tags, (t) => {
+  return map(stars, (star) => {
+    const newStar = Object.assign({}, star)
+
+    newStar.tags = map(newStar.tags, (t) => {
       return t.tagName
     })
+    return newStar
   })
 }
 
@@ -103,8 +106,8 @@ class StarsStore {
         tags: selectedTags,
       })
       const { starsWithTagOrOperation } = data
-      mapTagNameToTags(starsWithTagOrOperation)
-      self.stars = starsWithTagOrOperation
+      const newStars = mapTagNameToTags(starsWithTagOrOperation)
+      self.stars = newStars
     } catch (err) {
       self.error = err.message
     }
@@ -120,8 +123,8 @@ class StarsStore {
         username,
       })
       const { stars } = data
-      mapTagNameToTags(stars)
-      self.stars = stars
+      const newStars = mapTagNameToTags(stars)
+      self.stars = newStars
     } catch (err) {
       self.error = err.message
     }

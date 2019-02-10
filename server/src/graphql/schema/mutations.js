@@ -1,12 +1,13 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLNonNull } = graphql
+const _ = require('lodash')
 
 const { starModules } = require('../../modules')
 
 const StarType = require('./starType')
 
 const { validatePrivilege } = require('../../utils/validatePrivilege')
-const { UnauthorizedError } = require('../errors')
+const { UnauthorizedError, NotFoundError } = require('../errors')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -34,7 +35,13 @@ const mutation = new GraphQLObjectType({
         tags: { type: GraphQLList(GraphQLString) },
       },
       async resolve(parentValue, args, req) {
-        if (!validatePrivilege(args.username, req.profile)) {
+        const star = await starModules.StarModel.findById(args.id)
+
+        if (_.isNil(star)) {
+          throw new NotFoundError()
+        }
+
+        if (!validatePrivilege(star.username, req.profile)) {
           throw new UnauthorizedError()
         }
         return await starModules.editStar(args)

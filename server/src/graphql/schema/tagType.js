@@ -13,7 +13,7 @@ const tagType = new GraphQLObjectType({
   fields: () => ({
     // id: { type: GraphQLID },
     tagName: { type: GraphQLNonNull(GraphQLString) },
-    Stars: {
+    stars: {
       type: GraphQLList(require('./starType')),
       resolve: async (parentValue) => {
         const res = await StarModel.find({

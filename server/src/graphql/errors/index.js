@@ -7,7 +7,16 @@ class UnauthorizedError extends Error {
   }
 }
 
+class NotFoundError extends Error {
+  constructor(message) {
+    super(message)
+    this.message = message || 'ID not found'
+    this.code = 400
+  }
+}
+
 
 module.exports = {
   UnauthorizedError,
+  NotFoundError,
 }

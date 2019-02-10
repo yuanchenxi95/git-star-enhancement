@@ -16,7 +16,7 @@ const starType = new GraphQLObjectType({
     githubRepository: { type: GraphQLNonNull(GraphQLString) },
     username: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
-    Tags: {
+    tags: {
       type: GraphQLList(require('./tagType')),
       resolve: async (parentValue) => {
         // console.log(parentValue)

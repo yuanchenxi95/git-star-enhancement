@@ -86,6 +86,7 @@ async function findAllTagsContainName(searchText) {
 
 
 module.exports = {
+  StarModel,
   createStar,
   editStar,
   deleteStar,

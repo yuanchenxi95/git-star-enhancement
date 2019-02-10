@@ -15,7 +15,7 @@ import Tags from 'src/components/Tags'
 
 @inject(stores => {
   const { starsStore, tagsStore } = stores
-  const { loadStars, loadStarsWithTags, removeStar, loading, error, stars, addStar } = starsStore
+  const { loadStars, loadStarsWithTags, removeStar, loading, error, stars, addStar, editStar } = starsStore
   const { loadTags, setSelectedTags } = tagsStore
   return {
     loadTags,
@@ -24,6 +24,7 @@ import Tags from 'src/components/Tags'
     loadStarsWithTags,
     removeStar,
     addStar,
+    editStar,
     stars,
     loading,
     error,
@@ -46,6 +47,7 @@ class MyStarPage extends Component {
     loadStarsWithTags: PropTypes.func.isRequired,
     removeStar: PropTypes.func.isRequired,
     addStar: PropTypes.func.isRequired,
+    editStar: PropTypes.func.isRequired,
     stars: MobxPropTypes.observableArray,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.string,
@@ -58,13 +60,13 @@ class MyStarPage extends Component {
   }
 
   renderStars() {
-    const { stars, removeStar } = this.props
+    const { stars, removeStar, editStar } = this.props
 
     return (
       <div>
         {stars.map(star => {
           return (
-            <StarCard key={star.id} star={star} removeStar={removeStar} />
+            <StarCard key={star.id} star={star} removeStar={removeStar} editStar={editStar} />
           )
         })}
       </div>

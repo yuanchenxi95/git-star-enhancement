@@ -2,9 +2,11 @@ import React, {Component, Fragment} from 'react'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
-import { Card, Button, CardHeader, CardBody,
-  CardTitle, CardText, Badge } from 'reactstrap'
+import { Card, Button, ButtonGroup, CardHeader, CardBody,
+  CardTitle, CardText, Badge, Row, Col } from 'reactstrap'
 import map from 'lodash/map'
+
+import EditStarModal from './EditStarModal'
 
 @withNamespaces()
 @observer
@@ -12,7 +14,9 @@ class StarCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isEditStarModalOpen: false,
     }
+    this.toggle = this.toggle.bind(this)
     this.renderTags = this.renderTags.bind(this)
   }
 
@@ -24,16 +28,23 @@ class StarCard extends Component {
       description: PropTypes.string,
       Tags: PropTypes.array,
     }),
+    editStar: PropTypes.func.isRequired,
     removeStar: PropTypes.func.isRequired,
   }
 
+  toggle() {
+    this.setState({
+      isEditStarModalOpen: !this.state.isEditStarModalOpen,
+    })
+  }
 
-  renderTags(Tags) {
-    return map(Tags, (t, idx) => {
+
+  renderTags(tags) {
+    return map(tags, (t, idx) => {
 
       return (
         <Fragment key={idx}>
-          <Badge color='dark'>{t.tagName}</Badge>
+          <Badge color='dark'>{t}</Badge>
           {'  '}
         </Fragment>
       )
@@ -41,26 +52,49 @@ class StarCard extends Component {
   }
 
   render() {
-    const { star, removeStar } = this.props
-    const { githubRepository, description, Tags, id } = star
+    const { star, removeStar, editStar } = this.props
+    const { githubRepository, description, tags, id } = star
     return (
       <Card>
         <CardHeader>
-          <a target='_blank' rel='noopener noreferrer' href={`https://github.com/${githubRepository}`}>
-            <b>{githubRepository}</b>
-          </a>
-          <Button
-            color={'secondary'}
-            size='sm'
-            onClick={() => removeStar({ id })}
-            className='float-right'
-          >
-            Unstar
-          </Button>
+
+          <EditStarModal
+            isModalOpen={this.state.isEditStarModalOpen}
+            toggle={this.toggle}
+            editStar={editStar}
+            star={star}
+          />
+
+          <Row>
+            <Col xs="3">
+              <a target='_blank' rel='noopener noreferrer' href={`https://github.com/${githubRepository}`}>
+                <b>{githubRepository}</b>
+              </a>
+            </Col>
+            <Col xs="6">{' '}</Col>
+            <Col xs="3">
+              <ButtonGroup className={'float-right'}>
+                <Button
+                  color={'success'}
+                  size='sm'
+                  onClick={this.toggle}
+                >
+                  EditStar
+                </Button>
+                <Button
+                  color={'secondary'}
+                  size='sm'
+                  onClick={() => removeStar({ id })}
+                >
+                  Unstar
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Row>
 
         </CardHeader>
         <CardBody>
-          <CardTitle>{this.renderTags(Tags)}</CardTitle>
+          <CardTitle>{this.renderTags(tags)}</CardTitle>
           <CardText>{description}</CardText>
         </CardBody>
       </Card>

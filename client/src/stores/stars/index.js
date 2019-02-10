@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx'
+import map from 'lodash/map'
 
 import tagsStore from '../tags'
 
@@ -8,11 +9,19 @@ import {
 } from '../../apollo/queries/stars'
 
 import {
-  addStarMutation,
+  addStarMutation, editStarMutation,
   removeStarMutation,
 } from '../../apollo/mutatations/stars'
 
 import authenticationStore from '../authentication/index'
+
+function mapTagNameToTags(stars) {
+  stars.forEach((star) => {
+    star.tags = map(star.tags, (t) => {
+      return t.tagName
+    })
+  })
+}
 
 class StarsStore {
   @observable error = null
@@ -37,6 +46,24 @@ class StarsStore {
       await addStarMutation({
         username,
         githubRepository,
+        description,
+        tags,
+      })
+
+      await self.loadStars({ username })
+    } catch (err) {
+      self.error = err.message
+    }
+    self.loading = false
+  }
+
+  @action async editStar({ id, description, tags }) {
+    self.error = null
+    self.loading = true
+    const { username } = authenticationStore
+    try {
+      await editStarMutation({
+        id,
         description,
         tags,
       })
@@ -75,7 +102,9 @@ class StarsStore {
         username,
         tags: selectedTags,
       })
-      self.stars = data.starsWithTagOrOperation
+      const { starsWithTagOrOperation } = data
+      mapTagNameToTags(starsWithTagOrOperation)
+      self.stars = starsWithTagOrOperation
     } catch (err) {
       self.error = err.message
     }
@@ -90,7 +119,9 @@ class StarsStore {
       const { data } = await getStarsForUser({
         username,
       })
-      self.stars = data.stars
+      const { stars } = data
+      mapTagNameToTags(stars)
+      self.stars = stars
     } catch (err) {
       self.error = err.message
     }

@@ -10,7 +10,7 @@ export const STAR_QUERY = gql`
       githubRepository
       username
       description
-      Tags {
+      tags {
         tagName
       }
     }
@@ -33,7 +33,7 @@ export const STARS_WITH_TAGS_OR_QUERY = gql`
       githubRepository
       username
       description
-      Tags {
+      tags {
         tagName
       }
     }

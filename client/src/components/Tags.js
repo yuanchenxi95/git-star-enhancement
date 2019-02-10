@@ -6,6 +6,7 @@ import {Button, FormGroup, Input, Label, ListGroup, ListGroupItem} from 'reactst
 import findIndex from 'lodash/findIndex'
 import filter from 'lodash/filter'
 import map from 'lodash/map'
+import isNil from 'lodash/isNil'
 
 const KeyCodes = {
   comma: 188,
@@ -33,7 +34,18 @@ class Tags extends Component {
 
   static propTypes = {
     t: PropTypes.func.isRequired,
-    setTags: PropTypes.func,
+    tags: PropTypes.array,
+    setTags: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    const { tags } = this.props
+    if (!isNil(tags)) {
+
+      this.setState({
+        tags: [].concat(tags),
+      })
+    }
   }
 
   setField(field, value) {

@@ -10,7 +10,21 @@ const ADD_STAR_MUTATION = gql`
       username
       githubRepository
       description
-      Tags {
+      tags {
+        tagName
+      }
+    }
+  }
+`
+
+const EDIT_STAR_MUTATION = gql`
+  mutation editStar($id: ID!, $description: String, $tags: [String]) {
+    editStar(id: $id, description: $description, tags: $tags) {
+      id
+      username
+      githubRepository
+      description
+      tags {
         tagName
       }
     }
@@ -35,6 +49,17 @@ export async function addStarMutation({ username, githubRepository, description,
   return res
 }
 
+
+export async function editStarMutation({ id, description, tags }) {
+  const res = await client.mutate({
+    mutation: EDIT_STAR_MUTATION,
+    variables: {
+      id, description, tags,
+    },
+  })
+
+  return res
+}
 
 export async function removeStarMutation({ id }) {
   const res = await client.mutate({

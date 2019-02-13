@@ -6,7 +6,7 @@ import { PropTypes as MobxPropTypes } from 'mobx-react'
 import { Button } from 'reactstrap'
 // import './ChineseTranslationPage.css'
 
-// import { keys } from 'src/i18n/resources'
+import { keys } from 'src/i18n/resources'
 
 import AddStarModal from 'src/components/AddStarModal'
 import StarCard from 'src/components/StarCard'
@@ -74,13 +74,15 @@ class MyStarPage extends Component {
   }
 
   render() {
-    const { addStar, setSelectedTags, loadStarsWithTags } = this.props
+    const { addStar, setSelectedTags, loadStarsWithTags, t } = this.props
 
     return (
       <div>
-        <h1>My star page</h1>
+        <h1>{t(keys.myStarPage)}</h1>
         <Tags setTags={setSelectedTags}/>
-        <Button onClick={() => loadStarsWithTags()} color={'success '} block >Search</Button>
+        <Button onClick={() => loadStarsWithTags()} color={'success'} block >
+          {t(keys.search)}
+        </Button>
         <br/>
         <AddStarModal addStar={addStar}/>
         {this.renderStars()}

@@ -6,6 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody,
   ModalFooter, FormGroup, Label, Input } from 'reactstrap'
 
 import Tags from './Tags'
+import { keys } from 'src/i18n/resources'
 
 @withNamespaces()
 @observer
@@ -49,11 +50,12 @@ class AddStarModal extends Component {
   }
 
   render() {
+    const { t } = this.props
     return (
       <div>
-        <Button color='primary' onClick={this.toggle}>Add Star</Button>
+        <Button color='primary' onClick={this.toggle}>{t(keys.addStar)}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{t(keys.addStar)}</ModalHeader>
           <ModalBody>
             <FormGroup>
               <Label for="repository">Repository</Label>
@@ -65,7 +67,7 @@ class AddStarModal extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="description">Description</Label>
+              <Label for="description">{t(keys.description)}</Label>
               <Input
                 type="text"
                 name="description"
@@ -80,9 +82,9 @@ class AddStarModal extends Component {
             />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.addStar()}>Add Star</Button>
+            <Button color="primary" onClick={() => this.addStar()}>{t(keys.addStar)}</Button>
             {' '}
-            <Button color="secondary" onClick={() => this.toggle()}>Cancel</Button>
+            <Button color="secondary" onClick={() => this.toggle()}>{t(keys.cancel)}</Button>
           </ModalFooter>
         </Modal>
       </div>

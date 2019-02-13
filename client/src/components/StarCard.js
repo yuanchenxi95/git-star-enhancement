@@ -7,6 +7,7 @@ import { Card, Button, ButtonGroup, CardHeader, CardBody,
 import map from 'lodash/map'
 
 import EditStarModal from './EditStarModal'
+import { keys } from 'src/i18n/resources'
 
 @withNamespaces()
 @observer
@@ -40,7 +41,6 @@ class StarCard extends Component {
 
 
   renderTags(tags) {
-    console.log(tags)
     return map(tags, (t, idx) => {
       return (
         <Fragment key={idx}>
@@ -52,7 +52,7 @@ class StarCard extends Component {
   }
 
   render() {
-    const { star, removeStar, editStar } = this.props
+    const { star, removeStar, editStar, t } = this.props
     const { githubRepository, description, tags, id } = star
     return (
       <Card>
@@ -78,14 +78,14 @@ class StarCard extends Component {
                   size='sm'
                   onClick={this.toggle}
                 >
-                  EditStar
+                  {t(keys.editStar)}
                 </Button>
                 <Button
                   color={'secondary'}
                   size='sm'
                   onClick={() => removeStar({ id })}
                 >
-                  Unstar
+                  {t(keys.unstar)}
                 </Button>
               </ButtonGroup>
             </Col>

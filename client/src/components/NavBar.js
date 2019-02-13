@@ -71,7 +71,7 @@ class NavBar extends Component {
             </NavItem>
             <NavItem>
               <NavLink onClick={() => { logOut() }}>
-                Log Out
+                {t(keys.logout)}
               </NavLink>
             </NavItem>
           </Nav>

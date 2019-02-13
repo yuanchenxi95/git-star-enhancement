@@ -8,6 +8,8 @@ import filter from 'lodash/filter'
 import map from 'lodash/map'
 import isNil from 'lodash/isNil'
 
+import { keys } from 'src/i18n/resources'
+
 const KeyCodes = {
   comma: 188,
   enter: 13,
@@ -85,6 +87,7 @@ class Tags extends Component {
   }
 
   renderTags() {
+    const { t } = this.props
     return (
       <ListGroup>
         {
@@ -99,7 +102,7 @@ class Tags extends Component {
                     onClick={() => this.handleDelete(tag)}
                     className='float-right'
                   >
-                    Remove
+                    {t(keys.remove)}
                   </Button>
                 </ListGroupItem>
               </Fragment>
@@ -114,11 +117,13 @@ class Tags extends Component {
 
   render() {
 
+    const { t } = this.props
     return (
       <div>
+        <Label for="tag">{t(keys.tags)}</Label>
         {this.renderTags()}
+        {t(keys.tagsHint)}
         <FormGroup>
-          <Label for="tag">Tag</Label>
           <Input
             type="text"
             name="tag"

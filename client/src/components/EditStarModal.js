@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import { Button, Modal, ModalHeader, ModalBody,
   ModalFooter, FormGroup, Label, Input } from 'reactstrap'
 
 import Tags from './Tags'
+import { keys } from 'src/i18n/resources'
+
 
 @withNamespaces()
 @observer
@@ -62,14 +63,14 @@ class EditStarModal extends Component {
 
   render() {
 
-    const { star, isModalOpen, toggle } = this.props
+    const { star, isModalOpen, toggle, t } = this.props
     const { githubRepository } = star
     const { description, tags } = this.state
 
     return (
       <div>
         <Modal isOpen={isModalOpen} toggle={toggle}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{t(keys.editStar)}</ModalHeader>
           <ModalBody>
             <FormGroup>
               <Label for="repository">Repository</Label>
@@ -82,7 +83,7 @@ class EditStarModal extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="description">Description</Label>
+              <Label for="description">{t(keys.description)}</Label>
               <Input
                 type="text"
                 name="description"
@@ -99,9 +100,9 @@ class EditStarModal extends Component {
             />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.editStar()}>Update Star</Button>
+            <Button color="primary" onClick={() => this.editStar()}>{t(keys.updateStar)}</Button>
             {' '}
-            <Button color="secondary" onClick={() => toggle()}>Cancel</Button>
+            <Button color="secondary" onClick={() => toggle()}>{t(keys.cancel)}</Button>
           </ModalFooter>
         </Modal>
       </div>

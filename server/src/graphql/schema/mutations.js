@@ -53,7 +53,12 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       async resolve(parentValue, args, req) {
-        if (!validatePrivilege(args.username, req.profile)) {
+        const star = await starModules.StarModel.findById(args.id)
+
+        if (_.isNil(star)) {
+          throw new NotFoundError()
+        }
+        if (!validatePrivilege(star.username, req.profile)) {
           throw new UnauthorizedError()
         }
         return await starModules.deleteStar(args.id)
